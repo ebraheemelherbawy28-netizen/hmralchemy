@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HMR Alchemy | فن الكونكريت والريزن المصنوع بروح</title>
+    <meta name="description" content="HMR Alchemy - Concrete & Resin Art. Handmade with soul in Egypt with Worldwide Shipping. Custom gifts, gold-leaf concrete decor, and resin keepsakes.">
+
+    <!-- Google Fonts: Amiri & Cormorant Garamond (Display) + IBM Plex Sans Arabic & Plus Jakarta Sans (Body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Tailwind Configuration & Brand Design Tokens -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        linen: '#F5F0E8',
+                        ivory: '#FAF8F5',
+                        charcoal: '#1E1E1E',
+                        muted: '#5A554E',
+                        gold: {
+                            DEFAULT: '#C59B48',
+                            dark: '#A88032',
+                            light: '#DFC386',
+                            soft: '#EFE5D1'
+                        },
+                        sandBorder: '#E5DDD0'
+                    },
+                    fontFamily: {
+                        displayAr: ['Amiri', 'serif'],
+                        displayEn: ['Cormorant Garamond', 'serif'],
+                        bodyAr: ['IBM Plex Sans Arabic', 'sans-serif'],
+                        bodyEn: ['Plus Jakarta Sans', 'sans-serif']
+                    },
+                    boxShadow: {
+                        'soft': '0 10px 35px -10px rgba(30, 30, 30, 0.06)',
+                        'gold': '0 10px 25px -5px rgba(197, 155, 72, 0.28)'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Base Typography Switching based on Language Direction */
+        html[dir="rtl"] body {
+            font-family: 'IBM Plex Sans Arabic', sans-serif;
+        }
+        html[dir="ltr"] body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        html[dir="rtl"] .font-display {
+            font-family: 'Amiri', serif;
+        }
+        html[dir="ltr"] .font-display {
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        /* Subtle Linen Paper Grain Texture */
+        .bg-linen-texture {
+            background-color: #F5F0E8;
+            background-image: radial-gradient(rgba(197, 155, 72, 0.08) 1px, transparent 0),
+                              radial-gradient(rgba(30, 30, 30, 0.03) 1px, transparent 0);
+            background-size: 32px 32px;
+            background-position: 0 0, 16px 16px;
+        }
+
+        /* Gold Leaf Shimmer Gradient */
+        .gold-gradient {
+            background: linear-gradient(135deg, #C59B48 0%, #DFC386 50%, #B38938 100%);
+        }
+        .gold-text-gradient {
+            background: linear-gradient(135deg, #B38938 0%, #D4AF61 50%, #9E7628 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Smooth Modal & Card Transitions */
+        .card-hover {
+            transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease, border-color 0.35s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 18px 40px -12px rgba(30, 30, 30, 0.1);
+            border-color: #C59B48;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F5F0E8;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #D4C8B6;
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #C59B48;
+        }
+    </style>
+</head>
+<body class="bg-linen-texture text-charcoal antialiased selection:bg-gold/25 selection:text-charcoal">
+
+    <!-- ==================== TOAST NOTIFICATION (Replaces alert()) ==================== -->
+    <div id="toast" class="fixed top-24 left-1/2 -translate-x-1/2 z-[100] hidden items-center gap-3 bg-charcoal text-ivory px-5 py-3.5 rounded-2xl shadow-xl border border-gold/40 text-sm transition-all duration-300">
+        <i class="fa-solid fa-circle-check text-gold text-base"></i>
+        <span id="toast-message">تم نسخ تفاصيل الطلب بنجاح</span>
+    </div>
+
+    <!-- ==================== HEADER & NAVIGATION ==================== -->
+    <header class="sticky top-0 z-40 bg-linen/90 backdrop-blur-md border-b border-sandBorder">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                
+                <!-- Brand Emblem & Logo (Matching HMR Alchemy Circular Linen Stamp) -->
+                <a href="#home" class="flex items-center gap-3.5 group">
+                    <div class="w-12 h-12 rounded-full bg-ivory border-2 border-gold/70 flex flex-col items-center justify-center shadow-sm group-hover:border-gold transition-colors relative overflow-hidden">
+                        <div class="absolute inset-1 rounded-full border border-charcoal/15"></div>
+                        <span class="font-displayEn font-bold text-sm tracking-widest text-charcoal leading-none">HMR</span>
+                        <span class="font-displayEn text-[8px] tracking-[0.2em] text-muted uppercase mt-0.5">Alchemy</span>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-displayEn text-xl sm:text-2xl font-bold tracking-wide text-charcoal leading-tight">HMR Alchemy</span>
+                        <span data-i18n="brandTagline" class="text-[11px] text-muted tracking-wide">فن الكونكريت والريزن • Handmade with soul</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Navigation -->
+                <nav class="hidden md:flex items-center gap-7 text-sm font-medium">
+                    <a href="#home" data-i18n="navHome" class="text-charcoal hover:text-gold transition-colors py-2">الرئيسية</a>
+                    <a href="#catalog" data-i18n="navCatalog" class="text-charcoal hover:text-gold transition-colors py-2">المنتجات</a>
+                    <a href="#how-it-works" data-i18n="navSteps" class="text-charcoal hover:text-gold transition-colors py-2">طريقة الطلب</a>
+                    <a href="#custom-order" data-i18n="navCustom" class="text-charcoal hover:text-gold transition-colors py-2">تصميم خاص</a>
+                    <a href="#about" data-i18n="navAbout" class="text-charcoal hover:text-gold transition-colors py-2">قصتنا</a>
+                    <a href="#contact" data-i18n="navContact" class="text-charcoal hover:text-gold transition-colors py-2">تواصل معنا</a>
+                </nav>
+
+                <!-- Right Controls: Language Switcher + Mobile Menu Button -->
+                <div class="flex items-center gap-2.5">
+                    <button id="langToggle" onclick="toggleLanguage()" class="px-3.5 py-2 rounded-xl bg-ivory border border-sandBorder hover:border-gold text-xs sm:text-sm font-semibold text-charcoal flex items-center gap-2 transition-all shadow-sm">
+                        <i class="fa-solid fa-globe text-gold"></i>
+                        <span id="langLabel">English</span>
+                    </button>
+
+                    <button id="mobileMenuBtn" onclick="toggleMobileMenu()" aria-label="Menu" class="md:hidden p-2.5 rounded-xl bg-ivory border border-sandBorder text-charcoal hover:border-gold transition-colors">
+                        <i class="fa-solid fa-bars text-lg"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Dropdown Navigation -->
+        <div id="mobileMenu" class="hidden md:hidden bg-ivory border-b border-sandBorder px-4 pt-3 pb-5 space-y-2 shadow-lg">
+            <a href="#home" onclick="closeMobileMenu()" data-i18n="navHome" class="block px-4 py-2.5 rounded-xl hover:bg-linen text-charcoal font-medium">الرئيسية</a>
+            <a href="#catalog" onclick="closeMobileMenu()" data-i18n="navCatalog" class="block px-4 py-2.5 rounded-xl hover:bg-linen text-charcoal font-medium">المنتجات</a>
+            <a href="#how-it-works" onclick="closeMobileMenu()" data-i18n="navSteps" class="block px-4 py-2.5 rounded-xl hover:bg-linen text-charcoal font-medium">طريقة الطلب</a>
+            <a href="#custom-order" onclick="closeMobileMenu()" data-i18n="navCustom" class="block px-4 py-2.5 rounded-xl hover:bg-linen text-charcoal font-medium">تصميم خاص</a>
+            <a href="#about" onclick="closeMobileMenu()" data-i18n="navAbout" class="block px-4 py-2.5 rounded-xl hover:bg-linen text-charcoal font-medium">قصتنا</a>
+            <a href="#contact" onclick="closeMobileMenu()" data-i18n="navContact" class="block px-4 py-2.5 rounded-xl hover:bg-linen text-charcoal font-medium">تواصل معنا</a>
+        </div>
+    </header>
+
+    <!-- ==================== HERO SECTION ==================== -->
+    <section id="home" class="relative pt-10 pb-16 sm:pt-16 sm:pb-24 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+                
+                <!-- Hero Copy -->
+                <div class="lg:col-span-7 space-y-6 text-center lg:text-start">
+                    <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-ivory border border-gold/40 text-xs sm:text-sm font-medium text-charcoal shadow-sm">
+                        <span class="w-2 h-2 rounded-full bg-gold animate-pulse"></span>
+                        <span data-i18n="heroBadge">صناعة يدوية من مصر • شحن لجميع أنحاء العالم 🌍</span>
+                    </div>
+
+                    <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-charcoal leading-[1.2]">
+                        <span data-i18n="heroTitle1">قطع فنية من الكونكريت والريزن</span>
+                        <span class="block gold-text-gradient mt-1" data-i18n="heroTitle2">مصنوعة بروح ولمسة ذهب</span>
+                    </h1>
+
+                    <p data-i18n="heroSubtitle" class="text-base sm:text-lg text-muted max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                        في <strong>HMR Alchemy</strong> نحوّل الخامات البسيطة إلى قطع ديكور وهدايا تحمل قصتك؛ أطباق كونكريت بحواف مذهبة، ميداليات بالأسماء، وتابلوهات تحفظ أجمل ذكرياتك بتفاصيل يدوية متقنة.
+                    </p>
+
+                    <!-- Primary & Secondary CTA Buttons -->
+                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
+                        <a href="#catalog" class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-charcoal hover:bg-charcoal/90 text-ivory font-semibold text-sm sm:text-base flex items-center justify-center gap-2.5 shadow-soft transition-all">
+                            <span data-i18n="heroCtaExplore">استكشف التشكيلة</span>
+                            <i class="fa-solid fa-arrow-left rtl:rotate-0 ltr:rotate-180 text-gold"></i>
+                        </a>
+                        <a href="#custom-order" class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-ivory hover:bg-gold-soft/50 text-charcoal border border-gold/60 font-semibold text-sm sm:text-base flex items-center justify-center gap-2.5 transition-all">
+                            <i class="fa-solid fa-wand-magic-sparkles text-gold"></i>
+                            <span data-i18n="heroCtaCustom">اطلب تصميمك الخاص</span>
+                        </a>
+                    </div>
+
+                    <!-- Trust & Craft Highlights -->
+                    <div class="grid grid-cols-3 gap-4 pt-6 border-t border-sandBorder/80 max-w-lg mx-auto lg:mx-0">
+                        <div>
+                            <p class="font-display text-xl sm:text-2xl font-bold text-charcoal">100%</p>
+                            <p data-i18n="statHandmade" class="text-xs text-muted">صناعة يدوية متقنة</p>
+                        </div>
+                        <div>
+                            <p class="font-display text-xl sm:text-2xl font-bold text-gold">Custom</p>
+                            <p data-i18n="statCustom" class="text-xs text-muted">تخصيص الأسماء والألوان</p>
+                        </div>
+                        <div>
+                            <p class="font-display text-xl sm:text-2xl font-bold text-charcoal">Global</p>
+                            <p data-i18n="statShipping" class="text-xs text-muted">شحن محلي ودولي</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hero Artistic Editorial Composition -->
+                <div class="lg:col-span-5">
+                    <div class="relative mx-auto max-w-md">
+                        <!-- Decorative Gold Frame Backdrop -->
+                        <div class="absolute -inset-3 rounded-[2rem] border border-gold/40 rotate-2 pointer-events-none"></div>
+                        <div class="relative bg-ivory rounded-[2rem] p-5 sm:p-6 border border-sandBorder shadow-soft">
+                            <!-- Artistic SVG + Editorial Showcase Card -->
+                            <div class="aspect-[4/4.3] rounded-2xl bg-linen overflow-hidden relative flex items-center justify-center border border-sandBorder/60">
+                                <!-- Bespoke Decorative SVG Illustration representing Starfish Concrete Dish & Gold Leaf Resin -->
+                                <svg viewBox="0 0 400 420" class="w-full h-full object-cover" xmlns="http://www.w3.org/2000/svg">
+                                    <defs>
+                                        <linearGradient id="linenGrad" x1="0" y1="0" x2="1" y2="1">
+                                            <stop offset="0%" stop-color="#EFE8DC"/>
+                                            <stop offset="100%" stop-color="#E3D7C5"/>
+                                        </linearGradient>
+                                        <linearGradient id="goldLeaf" x1="0" y1="0" x2="1" y2="1">
+                                            <stop offset="0%" stop-color="#D9B464"/>
+                                            <stop offset="50%" stop-color="#C59B48"/>
+                                            <stop offset="100%" stop-color="#9E7628"/>
+                                        </linearGradient>
+                                        <filter id="softShadow" x="-15%" y="-15%" width="130%" height="130%">
+                                            <feDropShadow dx="0" dy="12" stdDeviation="12" flood-color="#1E1E1E" flood-opacity="0.14"/>
+                                        </filter>
+                                    </defs>
+
+                                    <!-- Linen Background -->
+                                    <rect width="400" height="420" fill="url(#linenGrad)"/>
+                                    
+                                    <!-- Fluted Concrete Pedestal Base (Bottom Left) -->
+                                    <g filter="url(#softShadow)" transform="translate(45, 195)">
+                                        <rect x="10" y="75" width="110" height="24" rx="12" fill="#FAF8F5" stroke="#DFD6C7" stroke-width="1.5"/>
+                                        <rect x="0" y="12" width="130" height="72" rx="18" fill="#FAF8F5" stroke="#DFD6C7" stroke-width="1.5"/>
+                                        <!-- Fluted Vertical Ribs -->
+                                        <line x1="20" y1="16" x2="20" y2="80" stroke="#E5DDD0" stroke-width="3"/>
+                                        <line x1="36" y1="16" x2="36" y2="80" stroke="#E5DDD0" stroke-width="3"/>
+                                        <line x1="52" y1="16" x2="52" y2="80" stroke="#E5DDD0" stroke-width="3"/>
+                                        <line x1="68" y1="16" x2="68" y2="80" stroke="#E5DDD0" stroke-width="3"/>
+                                        <line x1="84" y1="16" x2="84" y2="80" stroke="#E5DDD0" stroke-width="3"/>
+                                        <line x1="100" y1="16" x2="100" y2="80" stroke="#E5DDD0" stroke-width="3"/>
+                                        <line x1="114" y1="16" x2="114" y2="80" stroke="#E5DDD0" stroke-width="3"/>
+                                        <!-- Gold Leaf Rim -->
+                                        <path d="M4,18 Q35,8 65,15 T126,18" fill="none" stroke="url(#goldLeaf)" stroke-width="5" stroke-linecap="round"/>
+                                        <circle cx="95" cy="42" r="4" fill="url(#goldLeaf)"/>
+                                        <circle cx="32" cy="56" r="3" fill="url(#goldLeaf)"/>
+                                    </g>
+
+                                    <!-- Gold-Rimmed Starfish Concrete Dish (Top Right) -->
+                                    <g filter="url(#softShadow)" transform="translate(235, 130)">
+                                        <path d="M0,-85 L23,-28 L84,-24 L37,15 L52,75 L0,41 L-52,75 L-37,15 L-84,-24 L-23,-28 Z" 
+                                              fill="#FAF8F5" stroke="url(#goldLeaf)" stroke-width="5.5" stroke-linejoin="round"/>
+                                        <!-- Inner Sculpted Bowl -->
+                                        <path d="M0,-62 L16,-20 L60,-17 L26,11 L37,53 L0,29 L-37,53 L-26,11 L-60,-17 L-16,-20 Z" 
+                                              fill="#F2ECE1" opacity="0.7"/>
+                                        <!-- Gold Rings Inside Dish -->
+                                        <circle cx="-6" cy="5" r="14" fill="none" stroke="url(#goldLeaf)" stroke-width="3.5"/>
+                                        <circle cx="12" cy="-8" r="11" fill="none" stroke="url(#goldLeaf)" stroke-width="3"/>
+                                    </g>
+
+                                    <!-- Custom Resin Gold-Flake Keychain Emblem (Bottom Right) -->
+                                    <g filter="url(#softShadow)" transform="translate(260, 290)">
+                                        <circle cx="0" cy="-42" r="11" fill="none" stroke="url(#goldLeaf)" stroke-width="3"/>
+                                        <rect x="-36" y="-28" width="72" height="82" rx="16" fill="#FAF8F5" fill-opacity="0.92" stroke="url(#goldLeaf)" stroke-width="2"/>
+                                        <!-- Gold Flakes -->
+                                        <polygon points="-24,-20 -12,-22 -18,-12" fill="url(#goldLeaf)"/>
+                                        <polygon points="15,-18 26,-15 20,-7" fill="url(#goldLeaf)"/>
+                                        <polygon points="-22,40 -10,45 -18,32" fill="url(#goldLeaf)"/>
+                                        <polygon points="14,38 25,43 18,30" fill="url(#goldLeaf)"/>
+                                        <text x="0" y="19" text-anchor="middle" font-family="Amiri, serif" font-size="24" font-weight="bold" fill="#1E1E1E">ألكيمي</text>
+                                    </g>
+
+                                    <!-- Circular Brand Stamp Top Left -->
+                                    <g transform="translate(95, 85)">
+                                        <circle cx="0" cy="0" r="46" fill="#FAF8F5" stroke="#C59B48" stroke-width="1.5"/>
+                                        <circle cx="0" cy="0" r="40" fill="none" stroke="#1E1E1E" stroke-opacity="0.2" stroke-width="1"/>
+                                        <text x="0" y="4" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="22" font-weight="bold" fill="#1E1E1E" letter-spacing="2">HMR</text>
+                                        <text x="0" y="19" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="10" fill="#5A554E" letter-spacing="3">ALCHEMY</text>
+                                    </g>
+                                </svg>
+                            </div>
+
+                            <!-- Caption Strip Below Visual -->
+                            <div class="mt-4 flex items-center justify-between px-1">
+                                <div>
+                                    <p class="font-display text-lg font-bold text-charcoal" data-i18n="heroCardTitle">تشكيلة الكونكريت والريزن</p>
+                                    <p class="text-xs text-muted" data-i18n="heroCardSub">تُصنع يدوياً عند الطلب بتفاصيلك الخاصة</p>
+                                </div>
+                                <a href="#catalog" class="w-10 h-10 rounded-full bg-gold-soft hover:bg-gold text-charcoal hover:text-ivory flex items-center justify-center transition-colors">
+                                    <i class="fa-solid fa-arrow-up-left rtl:rotate-0 ltr:rotate-90"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== PRODUCT CATALOG & FILTER SECTION ==================== -->
+    <section id="catalog" class="py-16 sm:py-24 bg-ivory/70 border-y border-sandBorder">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- Section Header -->
+            <div class="text-center max-w-2xl mx-auto mb-10 space-y-3">
+                <span class="text-xs font-bold uppercase tracking-[0.2em] text-gold" data-i18n="catalogEyebrow">المتجر والكتالوج</span>
+                <h2 class="font-display text-3xl sm:text-4xl font-bold text-charcoal" data-i18n="catalogTitle">قطع مختارة من HMR Alchemy</h2>
+                <p class="text-sm sm:text-base text-muted" data-i18n="catalogSubtitle">
+                    اختر أي قطعة لتخصيص الاسم أو اللون وإرسال طلبك مباشرة عبر واتساب أو Gmail بضغطة واحدة.
+                </p>
+            </div>
+
+            <!-- Interactive Category Filter Tabs -->
+            <div class="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3 mb-12" id="categoryFilters">
+                <button onclick="filterProducts('all')" data-cat="all" class="filter-btn active px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all bg-charcoal text-ivory shadow-sm">
+                    <span data-i18n="catAll">الكل</span>
+                </button>
+                <button onclick="filterProducts('concrete')" data-cat="concrete" class="filter-btn px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all bg-ivory text-charcoal border border-sandBorder hover:border-gold">
+                    <span data-i18n="catConcrete">كونكريت وديكور</span>
+                </button>
+                <button onclick="filterProducts('resin')" data-cat="resin" class="filter-btn px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all bg-ivory text-charcoal border border-sandBorder hover:border-gold">
+                    <span data-i18n="catResin">ريزن وإكسسوارات</span>
+                </button>
+                <button onclick="filterProducts('gifts')" data-cat="gifts" class="filter-btn px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all bg-ivory text-charcoal border border-sandBorder hover:border-gold">
+                    <span data-i18n="catGifts">هدايا ومناسبات</span>
+                </button>
+            </div>
+
+            <!-- Products Grid (Rendered Dynamically via JS) -->
+            <div id="productsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-7">
+                <!-- Cards injected by renderProducts() -->
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ==================== HOW TO ORDER (3 STEPS) ==================== -->
+    <section id="how-it-works" class="py-16 sm:py-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-14 space-y-3">
+                <span class="text-xs font-bold uppercase tracking-[0.2em] text-gold" data-i18n="stepsEyebrow">خطوات بسيطة</span>
+                <h2 class="font-display text-3xl sm:text-4xl font-bold text-charcoal" data-i18n="stepsTitle">كيف تطلب قطعتك المخصصة؟</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Step 1 -->
+                <div class="bg-ivory rounded-3xl p-7 border border-sandBorder shadow-soft relative">
+                    <div class="w-12 h-12 rounded-2xl bg-gold-soft text-gold font-display text-2xl font-bold flex items-center justify-center mb-5">01</div>
+                    <h3 class="font-display text-xl font-bold text-charcoal mb-2" data-i18n="step1Title">اختر التصميم أو الخامة</h3>
+                    <p class="text-sm text-muted leading-relaxed" data-i18n="step1Desc">تصفح تشكيلة الكونكريت والريزن أو ابدأ بفكرة تصميم خاص يناسب ذوقك أو مناسبتك.</p>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="bg-ivory rounded-3xl p-7 border border-sandBorder shadow-soft relative">
+                    <div class="w-12 h-12 rounded-2xl bg-gold-soft text-gold font-display text-2xl font-bold flex items-center justify-center mb-5">02</div>
+                    <h3 class="font-display text-xl font-bold text-charcoal mb-2" data-i18n="step2Title">أضف لمستك الخاصة</h3>
+                    <p class="text-sm text-muted leading-relaxed" data-i18n="step2Desc">حدد الاسم بالعربي أو الإنجليزي، التاريخ المميز، وتدرجات الألوان ورقائق الذهب التي تفضلها.</p>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="bg-ivory rounded-3xl p-7 border border-sandBorder shadow-soft relative">
+                    <div class="w-12 h-12 rounded-2xl bg-gold-soft text-gold font-display text-2xl font-bold flex items-center justify-center mb-5">03</div>
+                    <h3 class="font-display text-xl font-bold text-charcoal mb-2" data-i18n="step3Title">أرسل طلبك فوراً</h3>
+                    <p class="text-sm text-muted leading-relaxed" data-i18n="step3Desc">بضغطة زر واحدة، يتم تجهيز رسالة طلبك وإرسالها إلينا عبر واتساب أو Gmail لتأكيد التفاصيل والشحن.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== CUSTOM ORDER BUILDER SECTION ==================== -->
+    <section id="custom-order" class="py-16 sm:py-24 bg-ivory border-y border-sandBorder">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-linen rounded-[2rem] p-6 sm:p-10 lg:p-12 border border-gold/40 shadow-soft">
+                <div class="text-center max-w-xl mx-auto mb-8 space-y-2.5">
+                    <span class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-ivory border border-gold/40 text-xs font-semibold text-gold">
+                        <i class="fa-solid fa-sparkles"></i>
+                        <span data-i18n="customBadge">تصميم حسب الطلب</span>
+                    </span>
+                    <h2 class="font-display text-3xl sm:text-4xl font-bold text-charcoal" data-i18n="customTitle">صمّم قطعتك الخاصة</h2>
+                    <p class="text-sm text-muted" data-i18n="customSubtitle">
+                        عندك فكرة هدية أو ديكور معين؟ اكتب التفاصيل هنا وأرسلها لنا مباشرة على واتساب أو Gmail.
+                    </p>
+                </div>
+
+                <form id="customOrderForm" onsubmit="event.preventDefault();" class="space-y-5">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                        <!-- Category Select -->
+                        <div>
+                            <label class="block text-xs font-semibold text-charcoal mb-2" data-i18n="labelCategory">نوع القطعة / الخامة</label>
+                            <select id="customCategory" class="w-full px-4 py-3.5 rounded-xl bg-ivory border border-sandBorder focus:border-gold focus:outline-none text-sm text-charcoal">
+                                <option value="ديكور كونكريت (Concrete Decor)" data-i18n="optConcrete">ديكور كونكريت (أطباق / علب / شموع)</option>
+                                <option value="إكسسوارات وميداليات ريزن (Resin Art)" data-i18n="optResin">إكسسوارات وميداليات ريزن</option>
+                                <option value="تابلوه حفظ ورد وذكريات (Memory Frame)" data-i18n="optFrame">تابلوه حفظ ورد وذكريات مناسبة</option>
+                                <option value="طقم هدايا متكامل (Custom Gift Set)" data-i18n="optSet">طقم هدايا مخصص بالكامل</option>
+                            </select>
+                        </div>
+
+                        <!-- Custom Name / Date -->
+                        <div>
+                            <label class="block text-xs font-semibold text-charcoal mb-2" data-i18n="labelCustomText">الاسم أو التاريخ المطلوب (إن وجد)</label>
+                            <input type="text" id="customText" placeholder="مثال: تاليا / 14-11-2026" class="w-full px-4 py-3.5 rounded-xl bg-ivory border border-sandBorder focus:border-gold focus:outline-none text-sm text-charcoal placeholder:text-muted/60">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                        <!-- Color Theme -->
+                        <div>
+                            <label class="block text-xs font-semibold text-charcoal mb-2" data-i18n="labelColors">الألوان والتفاصيل المفضلة</label>
+                            <input type="text" id="customColors" placeholder="مثال: أبيض رخامي مع ورق ذهب" class="w-full px-4 py-3.5 rounded-xl bg-ivory border border-sandBorder focus:border-gold focus:outline-none text-sm text-charcoal placeholder:text-muted/60">
+                        </div>
+
+                        <!-- Shipping Destination -->
+                        <div>
+                            <label class="block text-xs font-semibold text-charcoal mb-2" data-i18n="labelLocation">المحافظة أو الدولة للشحن</label>
+                            <input type="text" id="customLocation" placeholder="مثال: القاهرة / شحن دولي" class="w-full px-4 py-3.5 rounded-xl bg-ivory border border-sandBorder focus:border-gold focus:outline-none text-sm text-charcoal placeholder:text-muted/60">
+                        </div>
+                    </div>
+
+                    <!-- Notes -->
+                    <div>
+                        <label class="block text-xs font-semibold text-charcoal mb-2" data-i18n="labelNotes">وصف الفكرة أو ملاحظات إضافية</label>
+                        <textarea id="customNotes" rows="3" placeholder="اكتب أي تفاصيل إضافية عن المقاس أو المناسبة..." class="w-full px-4 py-3 rounded-xl bg-ivory border border-sandBorder focus:border-gold focus:outline-none text-sm text-charcoal placeholder:text-muted/60"></textarea>
+                    </div>
+
+                    <!-- Direct Send Buttons -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-2">
+                        <button type="button" onclick="sendCustomOrder('whatsapp')" class="w-full py-4 px-6 rounded-2xl bg-[#25D366] hover:bg-[#20BD5A] text-white font-semibold text-sm sm:text-base flex items-center justify-center gap-2.5 shadow-sm transition-all">
+                            <i class="fa-brands fa-whatsapp text-xl"></i>
+                            <span data-i18n="btnSendWhatsApp">إرسال الطلب عبر واتساب</span>
+                        </button>
+                        <button type="button" onclick="sendCustomOrder('gmail')" class="w-full py-4 px-6 rounded-2xl bg-charcoal hover:bg-charcoal/90 text-ivory font-semibold text-sm sm:text-base flex items-center justify-center gap-2.5 shadow-sm transition-all">
+                            <i class="fa-regular fa-envelope text-gold text-lg"></i>
+                            <span data-i18n="btnSendGmail">إرسال الطلب عبر Gmail</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== ABOUT HMR ALCHEMY ==================== -->
+    <section id="about" class="py-16 sm:py-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+                <div class="lg:col-span-6 space-y-5">
+                    <span class="text-xs font-bold uppercase tracking-[0.2em] text-gold" data-i18n="aboutEyebrow">قصتنا • Handmade with soul</span>
+                    <h2 class="font-display text-3xl sm:text-4xl font-bold text-charcoal leading-snug" data-i18n="aboutTitle">
+                        كيمياء الفن اليدوي: حين يلتقي هدوء الكونكريت ببريق الريزن والذهب
+                    </h2>
+                    <p class="text-sm sm:text-base text-muted leading-relaxed" data-i18n="aboutP1">
+                        انطلقت <strong>HMR Alchemy</strong> من شغف تحويل الخامات الخام إلى قطع فنية دافئة تحمل قيمة عاطفية وجمالية. كل قطعة تُصب وتُصقل وتُزين يدوياً بعناية فائقة، لتكون فريدة تماماً ولا تتكرر بنفس التفاصيل مرتين.
+                    </p>
+                    <p class="text-sm sm:text-base text-muted leading-relaxed" data-i18n="aboutP2">
+                        سواء كنت تبحث عن قطعة ديكور هادئة لمنزلك أو هدية مخصصة باسم وتاريخ لشخص عزيز، نضمن لك خامات عالية الجودة وتغليفاً آمناً يحمي القطعة في الشحن داخل مصر وإلى جميع دول العالم.
+                    </p>
+
+                    <div class="pt-2 flex flex-wrap gap-3">
+                        <span class="px-4 py-2 rounded-xl bg-ivory border border-sandBorder text-xs font-medium text-charcoal flex items-center gap-2">
+                            <i class="fa-solid fa-box-open text-gold"></i>
+                            <span data-i18n="pillPackaging">تغليف آمن للهدايا والشحن</span>
+                        </span>
+                        <span class="px-4 py-2 rounded-xl bg-ivory border border-sandBorder text-xs font-medium text-charcoal flex items-center gap-2">
+                            <i class="fa-solid fa-plane-departure text-gold"></i>
+                            <span data-i18n="pillWorldwide">شحن داخل مصر ودولياً</span>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Brand Values Cards -->
+                <div class="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="bg-ivory p-6 rounded-3xl border border-sandBorder shadow-soft space-y-2.5">
+                        <div class="w-10 h-10 rounded-xl bg-gold-soft text-gold flex items-center justify-center">
+                            <i class="fa-solid fa-gem"></i>
+                        </div>
+                        <h3 class="font-display text-lg font-bold text-charcoal" data-i18n="val1Title">لمسات ورق الذهب</h3>
+                        <p class="text-xs sm:text-sm text-muted leading-relaxed" data-i18n="val1Desc">تذهيب يدوي دقيق للحواف والتفاصيل يضفي فخامة هادئة على كل قطعة كونكريت أو ريزن.</p>
+                    </div>
+
+                    <div class="bg-ivory p-6 rounded-3xl border border-sandBorder shadow-soft space-y-2.5">
+                        <div class="w-10 h-10 rounded-xl bg-gold-soft text-gold flex items-center justify-center">
+                            <i class="fa-solid fa-heart"></i>
+                        </div>
+                        <h3 class="font-display text-lg font-bold text-charcoal" data-i18n="val2Title">حفظ الذكريات</h3>
+                        <p class="text-xs sm:text-sm text-muted leading-relaxed" data-i18n="val2Desc">تخليد باقات الورد وتواريخ المناسبات الخاصة داخل إطارات ريزن تحافظ على جمالها لسنوات.</p>
+                    </div>
+
+                    <div class="bg-ivory p-6 rounded-3xl border border-sandBorder shadow-soft space-y-2.5">
+                        <div class="w-10 h-10 rounded-xl bg-gold-soft text-gold flex items-center justify-center">
+                            <i class="fa-solid fa-palette"></i>
+                        </div>
+                        <h3 class="font-display text-lg font-bold text-charcoal" data-i18n="val3Title">ألوان متناغمة</h3>
+                        <p class="text-xs sm:text-sm text-muted leading-relaxed" data-i18n="val3Desc">من الأبيض العاجي والبيج الدافئ إلى درجات الباستيل الناعمة لتناسب مختلف أنماط الديكور.</p>
+                    </div>
+
+                    <div class="bg-ivory p-6 rounded-3xl border border-sandBorder shadow-soft space-y-2.5">
+                        <div class="w-10 h-10 rounded-xl bg-gold-soft text-gold flex items-center justify-center">
+                            <i class="fa-brands fa-instagram"></i>
+                        </div>
+                        <h3 class="font-display text-lg font-bold text-charcoal" data-i18n="val4Title">تابع أحدث الأعمال</h3>
+                        <p class="text-xs sm:text-sm text-muted leading-relaxed" data-i18n="val4Desc">شاهد كواليس التصنيع والقطع الجديدة باستمرار على صفحتنا الرسمية @hmr_alchemy.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== CONTACT & FOOTER ==================== -->
+    <footer id="contact" class="bg-charcoal text-ivory pt-16 pb-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10 pb-12 border-b border-ivory/10">
+                
+                <!-- Col 1: Brand Info -->
+                <div class="space-y-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-11 h-11 rounded-full bg-ivory/10 border border-gold flex flex-col items-center justify-center">
+                            <span class="font-displayEn font-bold text-xs tracking-widest text-ivory">HMR</span>
+                            <span class="font-displayEn text-[7px] tracking-[0.2em] text-gold uppercase">Alchemy</span>
+                        </div>
+                        <span class="font-displayEn text-2xl font-bold tracking-wide">HMR Alchemy</span>
+                    </div>
+                    <p class="text-sm text-ivory/75 leading-relaxed" data-i18n="footerDesc">
+                        Concrete & Resin Art — Handmade with soul 🖤
+                        <br>مشغولات فنية يدوية من الكونكريت والريزن، تُصنع بحب في مصر وتُشحن لجميع أنحاء العالم.
+                    </p>
+                </div>
+
+                <!-- Col 2: Direct Order Channels -->
+                <div class="space-y-4">
+                    <h4 class="font-display text-xl font-bold text-gold" data-i18n="footerContactTitle">قنوات الطلب والتواصل المباشر</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li>
+                            <a href="https://wa.me/201080373054" target="_blank" rel="noopener" class="flex items-center gap-3 text-ivory/85 hover:text-gold transition-colors">
+                                <span class="w-9 h-9 rounded-xl bg-ivory/10 flex items-center justify-center text-[#25D366]">
+                                    <i class="fa-brands fa-whatsapp text-lg"></i>
+                                </span>
+                                <span dir="ltr">+20 108 037 3054</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="mailto:hmralchmy@gmail.com" class="flex items-center gap-3 text-ivory/85 hover:text-gold transition-colors">
+                                <span class="w-9 h-9 rounded-xl bg-ivory/10 flex items-center justify-center text-gold">
+                                    <i class="fa-regular fa-envelope text-base"></i>
+                                </span>
+                                <span>hmralchmy@gmail.com</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.instagram.com/hmr_alchemy" target="_blank" rel="noopener" class="flex items-center gap-3 text-ivory/85 hover:text-gold transition-colors">
+                                <span class="w-9 h-9 rounded-xl bg-ivory/10 flex items-center justify-center text-pink-400">
+                                    <i class="fa-brands fa-instagram text-lg"></i>
+                                </span>
+                                <span dir="ltr">@hmr_alchemy</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Col 3: Quick Links -->
+                <div class="space-y-4">
+                    <h4 class="font-display text-xl font-bold text-gold" data-i18n="footerLinksTitle">روابط سريعة</h4>
+                    <div class="flex flex-col space-y-2.5 text-sm text-ivory/80">
+                        <a href="#home" data-i18n="navHome" class="hover:text-gold transition-colors">الرئيسية</a>
+                        <a href="#catalog" data-i18n="navCatalog" class="hover:text-gold transition-colors">المنتجات</a>
+                        <a href="#custom-order" data-i18n="navCustom" class="hover:text-gold transition-colors">طلب تصميم خاص</a>
+                        <a href="#about" data-i18n="navAbout" class="hover:text-gold transition-colors">قصتنا</a>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-ivory/60">
+                <p>© 2026 HMR Alchemy. All rights reserved.</p>
+                <p data-i18n="footerShippingNote">📍 مصر | شحن متاح لجميع المحافظات ودول العالم</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ==================== FLOATING WHATSAPP ACTION BUTTON ==================== -->
+    <a href="https://wa.me/201080373054" target="_blank" rel="noopener" aria-label="Chat on WhatsApp" class="fixed bottom-5 ltr:right-5 rtl:left-5 z-40 flex items-center gap-2.5 bg-[#25D366] hover:bg-[#20BD5A] text-white px-4 py-3.5 rounded-full shadow-xl transition-transform hover:scale-105">
+        <i class="fa-brands fa-whatsapp text-2xl"></i>
+        <span class="hidden sm:inline text-xs font-bold" data-i18n="floatingWa">تواصل واتساب</span>
+    </a>
+
+    <!-- ==================== PRODUCT CUSTOMIZATION & ORDER MODAL ==================== -->
+    <div id="productModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-charcoal/65 backdrop-blur-sm overflow-y-auto">
+        <div class="bg-ivory w-full max-w-2xl rounded-[2rem] border border-sandBorder shadow-2xl overflow-hidden my-auto animate-fadeIn">
+            
+            <!-- Modal Header -->
+            <div class="flex items-center justify-between px-6 py-4 bg-linen border-b border-sandBorder">
+                <span id="modalCategoryBadge" class="text-xs font-bold uppercase tracking-wider text-gold">Concrete Decor</span>
+                <button onclick="closeProductModal()" aria-label="Close" class="w-9 h-9 rounded-full bg-ivory border border-sandBorder hover:border-gold flex items-center justify-center text-charcoal transition-colors">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="p-6 sm:p-8 space-y-6">
+                <div class="grid grid-cols-1 sm:grid-cols-12 gap-6 items-center">
+                    <!-- Product Visual Preview -->
+                    <div id="modalArtwork" class="sm:col-span-5 aspect-square rounded-2xl bg-linen border border-sandBorder flex items-center justify-center overflow-hidden p-3">
+                        <!-- SVG Artwork injected dynamically -->
+                    </div>
+
+                    <!-- Product Details -->
+                    <div class="sm:col-span-7 space-y-2.5">
+                        <h3 id="modalTitle" class="font-display text-2xl sm:text-3xl font-bold text-charcoal">اسم المنتج</h3>
+                        <p id="modalDesc" class="text-sm text-muted leading-relaxed">وصف المنتج التفصيلي</p>
+                        <div class="pt-1 flex flex-wrap gap-2">
+                            <span class="px-3 py-1 rounded-lg bg-gold-soft/70 text-charcoal text-xs font-semibold" data-i18n="modalPriceBadge">السعر حسب المقاس والتخصيص</span>
+                            <span id="modalMaterialBadge" class="px-3 py-1 rounded-lg bg-linen border border-sandBorder text-muted text-xs">صناعة يدوية</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Customization Inputs -->
+                <div class="bg-linen/70 p-5 rounded-2xl border border-sandBorder space-y-4">
+                    <h4 class="text-sm font-bold text-charcoal flex items-center gap-2">
+                        <i class="fa-solid fa-pen-nib text-gold"></i>
+                        <span data-i18n="modalCustomizeTitle">خصص قطعتك قبل إرسال الطلب</span>
+                    </h4>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-medium text-charcoal mb-1.5" data-i18n="modalLabelName">الاسم أو التاريخ المطلوب (اختياري)</label>
+                            <input type="text" id="modalCustomName" placeholder="مثال: تاليا / 14-11-2026" class="w-full px-3.5 py-2.5 rounded-xl bg-ivory border border-sandBorder focus:border-gold focus:outline-none text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-charcoal mb-1.5" data-i18n="modalLabelColor">اللون المفضل</label>
+                            <select id="modalCustomColor" class="w-full px-3.5 py-2.5 rounded-xl bg-ivory border border-sandBorder focus:border-gold focus:outline-none text-sm">
+                                <option value="أبيض عاجي وذهبي (Ivory & Gold)">أبيض عاجي وذهبي (Ivory & Gold)</option>
+                                <option value="ألوان باستيل هادئة (Pastel Pink / Blue)">ألوان باستيل هادئة (Pastel)</option>
+                                <option value="شفاف مع رقائق الذهب (Clear & Gold Flakes)">شفاف مع رقائق الذهب</option>
+                                <option value="أسود وذهبي (Black & Gold)">أسود وذهبي (Black & Gold)</option>
+                                <option value="لون مخصص (سأحدده في الرسالة)">لون مخصص (سأحدده في الرسالة)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-medium text-charcoal mb-1.5" data-i18n="modalLabelNotes">ملاحظات أو استفسار عن السعر والمقاس</label>
+                        <input type="text" id="modalCustomNotes" placeholder="اكتب أي تفاصيل إضافية هنا..." class="w-full px-3.5 py-2.5 rounded-xl bg-ivory border border-sandBorder focus:border-gold focus:outline-none text-sm">
+                    </div>
+                </div>
+
+                <!-- Direct Order Action Buttons -->
+                <div class="space-y-2.5">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <button type="button" onclick="submitModalOrder('whatsapp')" class="w-full py-3.5 px-5 rounded-xl bg-[#25D366] hover:bg-[#20BD5A] text-white font-semibold text-sm flex items-center justify-center gap-2 shadow-sm transition-all">
+                            <i class="fa-brands fa-whatsapp text-lg"></i>
+                            <span data-i18n="modalBtnWa">اطلب عبر واتساب</span>
+                        </button>
+                        <button type="button" onclick="submitModalOrder('gmail')" class="w-full py-3.5 px-5 rounded-xl bg-charcoal hover:bg-charcoal/90 text-ivory font-semibold text-sm flex items-center justify-center gap-2 shadow-sm transition-all">
+                            <i class="fa-regular fa-envelope text-gold"></i>
+                            <span data-i18n="modalBtnGmail">اطلب عبر Gmail</span>
+                        </button>
+                    </div>
+                    <button type="button" onclick="copyModalOrderDetails()" class="w-full py-2.5 px-4 rounded-xl bg-linen hover:bg-gold-soft/40 border border-sandBorder text-xs font-medium text-muted hover:text-charcoal flex items-center justify-center gap-2 transition-colors">
+                        <i class="fa-regular fa-copy text-gold"></i>
+                        <span data-i18n="modalBtnCopy">نسخ تفاصيل الطلب</span>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== JAVASCRIPT LOGIC (Bilingual Data, Catalog, Smart Order Links) ==================== -->
+    <script>
+        // Exact Contact Credentials Provided by User
+        const CONTACT_CONFIG = {
+            whatsappNumber: '201080373054', // +20 108 037 3054
+            gmailAddress: 'hmralchmy@gmail.com',
+            instagramUrl: 'https://www.instagram.com/hmr_alchemy'
+        };
+
+        let currentLang = 'ar';
+        let currentFilter = 'all';
+        let activeProduct = null;
+
+        // UI Translations Dictionary
+        const translations = {
+            ar: {
+                brandTagline: 'فن الكونكريت والريزن • Handmade with soul',
+                navHome: 'الرئيسية',
+                navCatalog: 'المنتجات',
+                navSteps: 'طريقة الطلب',
+                navCustom: 'تصميم خاص',
+                navAbout: 'قصتنا',
+                navContact: 'تواصل معنا',
+                heroBadge: 'صناعة يدوية من مصر • شحن لجميع أنحاء العالم 🌍',
+                heroTitle1: 'قطع فنية من الكونكريت والريزن',
+                heroTitle2: 'مصنوعة بروح ولمسة ذهب',
+                heroSubtitle: 'في HMR Alchemy نحوّل الخامات البسيطة إلى قطع ديكور وهدايا تحمل قصتك؛ أطباق كونكريت بحواف مذهبة، ميداليات بالأسماء، وتابلوهات تحفظ أجمل ذكرياتك بتفاصيل يدوية متقنة.',
+                heroCtaExplore: 'استكشف التشكيلة',
+                heroCtaCustom: 'اطلب تصميمك الخاص',
+                statHandmade: 'صناعة يدوية متقنة',
+                statCustom: 'تخصيص الأسماء والألوان',
+                statShipping: 'شحن محلي ودولي',
+                heroCardTitle: 'تشكيلة الكونكريت والريزن',
+                heroCardSub: 'تُصنع يدوياً عند الطلب بتفاصيلك الخاصة',
+                catalogEyebrow: 'المتجر والكتالوج',
+                catalogTitle: 'قطع مختارة من HMR Alchemy',
+                catalogSubtitle: 'اختر أي قطعة لتخصيص الاسم أو اللون وإرسال طلبك مباشرة عبر واتساب أو Gmail بضغطة واحدة.',
+                catAll: 'الكل',
+                catConcrete: 'كونكريت وديكور',
+                catResin: 'ريزن وإكسسوارات',
+                catGifts: 'هدايا ومناسبات',
+                cardCta: 'تخصيص وطلب القطعة',
+                cardBadgeCustom: 'قابل للتخصيص',
+                stepsEyebrow: 'خطوات بسيطة',
+                stepsTitle: 'كيف تطلب قطعتك المخصصة؟',
+                step1Title: 'اختر التصميم أو الخامة',
+                step1Desc: 'تصفح تشكيلة الكونكريت والريزن أو ابدأ بفكرة تصميم خاص يناسب ذوقك أو مناسبتك.',
+                step2Title: 'أضف لمستك الخاصة',
+                step2Desc: 'حدد الاسم بالعربي أو الإنجليزي، التاريخ المميز، وتدرجات الألوان ورقائق الذهب التي تفضلها.',
+                step3Title: 'أرسل طلبك فوراً',
+                step3Desc: 'بضغطة زر واحدة، يتم تجهيز رسالة طلبك وإرسالها إلينا عبر واتساب أو Gmail لتأكيد التفاصيل والشحن.',
+                customBadge: 'تصميم حسب الطلب',
+                customTitle: 'صمّم قطعتك الخاصة',
+                customSubtitle: 'عندك فكرة هدية أو ديكور معين؟ اكتب التفاصيل هنا وأرسلها لنا مباشرة على واتساب أو Gmail.',
+                labelCategory: 'نوع القطعة / الخامة',
+                optConcrete: 'ديكور كونكريت (أطباق / علب / شموع)',
+                optResin: 'إكسسوارات وميداليات ريزن',
+                optFrame: 'تابلوه حفظ ورد وذكريات مناسبة',
+                optSet: 'طقم هدايا مخصص بالكامل',
+                labelCustomText: 'الاسم أو التاريخ المطلوب (إن وجد)',
+                labelColors: 'الألوان والتفاصيل المفضلة',
+                labelLocation: 'المحافظة أو الدولة للشحن',
+                labelNotes: 'وصف الفكرة أو ملاحظات إضافية',
+                btnSendWhatsApp: 'إرسال الطلب عبر واتساب',
+                btnSendGmail: 'إرسال الطلب عبر Gmail',
+                aboutEyebrow: 'قصتنا • Handmade with soul',
+                aboutTitle: 'كيمياء الفن اليدوي: حين يلتقي هدوء الكونكريت ببريق الريزن والذهب',
+                aboutP1: 'انطلقت HMR Alchemy من شغف تحويل الخامات الخام إلى قطع فنية دافئة تحمل قيمة عاطفية وجمالية. كل قطعة تُصب وتُصقل وتُزين يدوياً بعناية فائقة، لتكون فريدة تماماً ولا تتكرر بنفس التفاصيل مرتين.',
+                aboutP2: 'سواء كنت تبحث عن قطعة ديكور هادئة لمنزلك أو هدية مخصصة باسم وتاريخ لشخص عزيز، نضمن لك خامات عالية الجودة وتغليفاً آمناً يحمي القطعة في الشحن داخل مصر وإلى جميع دول العالم.',
+                pillPackaging: 'تغليف آمن للهدايا والشحن',
+                pillWorldwide: 'شحن داخل مصر ودولياً',
+                val1Title: 'لمسات ورق الذهب',
+                val1Desc: 'تذهيب يدوي دقيق للحواف والتفاصيل يضفي فخامة هادئة على كل قطعة كونكريت أو ريزن.',
+                val2Title: 'حفظ الذكريات',
+                val2Desc: 'تخليد باقات الورد وتواريخ المناسبات الخاصة داخل إطارات ريزن تحافظ على جمالها لسنوات.',
+                val3Title: 'ألوان متناغمة',
+                val3Desc: 'من الأبيض العاجي والبيج الدافئ إلى درجات الباستيل الناعمة لتناسب مختلف أنماط الديكور.',
+                val4Title: 'تابع أحدث الأعمال',
+                val4Desc: 'شاهد كواليس التصنيع والقطع الجديدة باستمرار على صفحتنا الرسمية @hmr_alchemy.',
+                footerDesc: 'Concrete & Resin Art — Handmade with soul 🖤 مشغولات فنية يدوية من الكونكريت والريزن، تُصنع بحب في مصر وتُشحن لجميع أنحاء العالم.',
+                footerContactTitle: 'قنوات الطلب والتواصل المباشر',
+                footerLinksTitle: 'روابط سريعة',
+                footerShippingNote: '📍 مصر | شحن متاح لجميع المحافظات ودول العالم',
+                floatingWa: 'تواصل واتساب',
+                modalPriceBadge: 'السعر حسب المقاس والتخصيص',
+                modalCustomizeTitle: 'خصص قطعتك قبل إرسال الطلب',
+                modalLabelName: 'الاسم أو التاريخ المطلوب (اختياري)',
+                modalLabelColor: 'اللون المفضل',
+                modalLabelNotes: 'ملاحظات أو استفسار عن السعر والمقاس',
+                modalBtnWa: 'اطلب عبر واتساب',
+                modalBtnGmail: 'اطلب عبر Gmail',
+                modalBtnCopy: 'نسخ تفاصيل الطلب',
+                toastCopied: 'تم نسخ تفاصيل الطلب بنجاح!'
+            },
+            en: {
+                brandTagline: 'Concrete & Resin Art • Handmade with soul',
+                navHome: 'Home',
+                navCatalog: 'Catalog',
+                navSteps: 'How to Order',
+                navCustom: 'Custom Order',
+                navAbout: 'Our Story',
+                navContact: 'Contact',
+                heroBadge: 'Handcrafted in Egypt • Worldwide Shipping 🌍',
+                heroTitle1: 'Artisanal Concrete & Resin',
+                heroTitle2: 'Handmade with Soul & Gold',
+                heroSubtitle: 'At HMR Alchemy, we transform raw materials into soulful keepsakes and home decor—gold-rimmed concrete trinket dishes, custom name keychains, and preserved flower memory frames.',
+                heroCtaExplore: 'Explore Collection',
+                heroCtaCustom: 'Request Custom Piece',
+                statHandmade: '100% Handcrafted',
+                statCustom: 'Custom Names & Colors',
+                statShipping: 'Egypt & Worldwide',
+                heroCardTitle: 'Concrete & Resin Signature',
+                heroCardSub: 'Made to order with your personal details',
+                catalogEyebrow: 'Our Collection',
+                catalogTitle: 'Curated Pieces by HMR Alchemy',
+                catalogSubtitle: 'Select any piece to customize your name, date, or color palette and send your order directly via WhatsApp or Gmail.',
+                catAll: 'All Pieces',
+                catConcrete: 'Concrete Decor',
+                catResin: 'Resin & Accessories',
+                catGifts: 'Custom Gifts',
+                cardCta: 'Customize & Order',
+                cardBadgeCustom: 'Customizable',
+                stepsEyebrow: 'Simple Process',
+                stepsTitle: 'How to Order Your Piece',
+                step1Title: 'Choose Your Design',
+                step1Desc: 'Browse our concrete and resin creations or share your own bespoke gift idea.',
+                step2Title: 'Add Personal Touches',
+                step2Desc: 'Specify Arabic or English names, special dates, pastel shades, or gold leaf finishes.',
+                step3Title: 'Send Instantly',
+                step3Desc: 'With one click, your formatted order is ready to send via WhatsApp or Gmail.',
+                customBadge: 'Bespoke Creation',
+                customTitle: 'Design Your Custom Piece',
+                customSubtitle: 'Have a special gift or decor idea in mind? Fill in your preferences and send directly to WhatsApp or Gmail.',
+                labelCategory: 'Piece Type / Material',
+                optConcrete: 'Concrete Decor (Dishes / Boxes / Candle Holders)',
+                optResin: 'Resin Keychains & Accessories',
+                optFrame: 'Preserved Flowers & Date Memory Frame',
+                optSet: 'Complete Custom Gift Set',
+                labelCustomText: 'Custom Name or Date (Optional)',
+                labelColors: 'Preferred Colors & Finish',
+                labelLocation: 'City or Country for Shipping',
+                labelNotes: 'Idea Description or Additional Notes',
+                btnSendWhatsApp: 'Send Order via WhatsApp',
+                btnSendGmail: 'Send Order via Gmail',
+                aboutEyebrow: 'Our Story • Handmade with soul',
+                aboutTitle: 'The Alchemy of Craft: Where Matte Concrete Meets Glossy Resin & Gold',
+                aboutP1: 'HMR Alchemy was born from a passion for turning raw materials into warm, meaningful art pieces. Every item is hand-poured, sanded, and gilded with care—ensuring no two pieces are ever identical.',
+                aboutP2: 'Whether elevating your vanity space or gifting a personalized keepsake, we ensure premium craftsmanship and secure protective packaging for delivery across Egypt and worldwide.',
+                pillPackaging: 'Protective Gift Packaging',
+                pillWorldwide: 'Egypt & Worldwide Shipping',
+                val1Title: 'Hand-Applied Gold Leaf',
+                val1Desc: 'Delicate gold rims and flakes add timeless warmth to every concrete and resin creation.',
+                val2Title: 'Preserved Memories',
+                val2Desc: 'Immortalize special occasion bouquets and milestone dates inside crystal-clear resin frames.',
+                val3Title: 'Harmonious Palettes',
+                val3Desc: 'From warm ivory and linen neutrals to soft pastels tailored to your space.',
+                val4Title: 'Follow Latest Works',
+                val4Desc: 'See behind-the-scenes crafting and new releases on our Instagram @hmr_alchemy.',
+                footerDesc: 'Concrete & Resin Art — Handmade with soul 🖤 Artisanal pieces crafted with love in Egypt and shipped worldwide.',
+                footerContactTitle: 'Direct Order & Contact Channels',
+                footerLinksTitle: 'Quick Links',
+                footerShippingNote: '📍 Egypt | Domestic & Worldwide Shipping Available',
+                floatingWa: 'WhatsApp Us',
+                modalPriceBadge: 'Pricing by Size & Customization',
+                modalCustomizeTitle: 'Personalize Before Ordering',
+                modalLabelName: 'Custom Name or Date (Optional)',
+                modalLabelColor: 'Preferred Color Palette',
+                modalLabelNotes: 'Notes or Size/Price Inquiry',
+                modalBtnWa: 'Order via WhatsApp',
+                modalBtnGmail: 'Order via Gmail',
+                modalBtnCopy: 'Copy Order Details',
+                toastCopied: 'Order details copied to clipboard!'
+            }
+        };
+
+        // Authentic Product Catalog Based on HMR Alchemy's Actual Instagram Pieces
+        const products = [
+            {
+                id: 'gold-starfish-dish',
+                category: 'concrete',
+                titleAr: 'طبق نجمة البحر بحافة مذهبة',
+                titleEn: 'Gold-Rimmed Starfish Concrete Dish',
+                materialAr: 'كونكريت يدوي + طلاء ذهبي',
+                materialEn: 'Hand-cast Concrete + Gold Rim',
+                descAr: 'طبق كونكريت منحوت على شكل نجمة البحر لتنظيم الخواتم والإكسسوارات اليومية، مطلي يدوياً بحافة ذهبية أنيقة.',
+                descEn: 'Sculpted starfish concrete trinket dish ideal for rings and daily jewelry, finished with a hand-painted gold rim.',
+                svg: `<svg viewBox="0 0 200 200" class="w-full h-full"><rect width="200" height="200" fill="#F2ECE1"/><path d="M100,25 L119,73 L170,77 L131,110 L143,160 L100,132 L57,160 L69,110 L30,77 L81,73 Z" fill="#FAF8F5" stroke="#C59B48" stroke-width="4.5" stroke-linejoin="round"/><circle cx="94" cy="102" r="12" fill="none" stroke="#C59B48" stroke-width="2.5"/><circle cx="110" cy="92" r="9" fill="none" stroke="#C59B48" stroke-width="2.2"/></svg>`
+            },
+            {
+                id: 'pastel-starfish-trio',
+                category: 'concrete',
+                titleAr: 'طقم أطباق النجوم بألوان الباستيل',
+                titleEn: 'Pastel Starfish Trinket Dishes',
+                materialAr: 'كونكريت ناعم بألوان مخصصة',
+                materialEn: 'Smooth Concrete in Pastel Shades',
+                descAr: 'مجموعة أطباق نجمة البحر متوفرة بالأبيض العاجي، الوردي الهادئ، والأزرق السماوي؛ مثالية لتنسيق التسريحة أو كهدية رقيقة.',
+                descEn: 'Starfish trinket dishes available in ivory white, soft blush pink, and powder blue—perfect for vanity styling or gifting.',
+                svg: `<svg viewBox="0 0 200 200" class="w-full h-full"><rect width="200" height="200" fill="#F2ECE1"/><path d="M100,22 L113,54 L148,57 L121,79 L129,113 L100,94 L71,113 L79,79 L52,57 L87,54 Z" fill="#FAF8F5" stroke="#DFD6C7" stroke-width="2"/><path d="M62,88 L75,120 L110,123 L83,145 L91,179 L62,160 L33,179 L41,145 L14,123 L49,120 Z" fill="#D6E2EC" stroke="#B9C9D6" stroke-width="2"/><path d="M138,88 L151,120 L186,123 L159,145 L167,179 L138,160 L109,179 L117,145 L90,123 L125,120 Z" fill="#F2CED6" stroke="#DFB3BD" stroke-width="2"/></svg>`
+            },
+            {
+                id: 'fluted-heart-box',
+                category: 'concrete',
+                titleAr: 'علبة مجوهرات مضلعة بقلوب حمراء',
+                titleEn: 'Fluted Heart-Accent Jewelry Box',
+                materialAr: 'كونكريت مضلع مرسوم يدوياً',
+                materialEn: 'Hand-Painted Fluted Concrete',
+                descAr: 'علبة دائرية بغطاء مضلع وتفاصيل قلوب صغيرة مرسومة يدوياً لحفظ الحلقان والخواتم بلمسة دافئة.',
+                descEn: 'Ribbed round concrete keepsake box with matching lid and delicate hand-painted mini red hearts.',
+                svg: `<svg viewBox="0 0 200 200" class="w-full h-full"><rect width="200" height="200" fill="#F2ECE1"/><rect x="42" y="75" width="116" height="75" rx="16" fill="#FAF8F5" stroke="#DFD6C7" stroke-width="2"/><line x1="60" y1="78" x2="60" y2="147" stroke="#E5DDD0" stroke-width="3"/><line x1="80" y1="78" x2="80" y2="147" stroke="#E5DDD0" stroke-width="3"/><line x1="100" y1="78" x2="100" y2="147" stroke="#E5DDD0" stroke-width="3"/><line x1="120" y1="78" x2="120" y2="147" stroke="#E5DDD0" stroke-width="3"/><line x1="140" y1="78" x2="140" y2="147" stroke="#E5DDD0" stroke-width="3"/><ellipse cx="100" cy="75" rx="60" ry="18" fill="#FAF8F5" stroke="#DFD6C7" stroke-width="2"/><circle cx="72" cy="112" r="3.5" fill="#C94A4A"/><circle cx="126" cy="124" r="3.5" fill="#C94A4A"/><circle cx="100" cy="75" r="3.5" fill="#C94A4A"/></svg>`
+            },
+            {
+                id: 'gold-leaf-candle-holder',
+                category: 'concrete',
+                titleAr: 'حامل شموع كونكريت بورق الذهب',
+                titleEn: 'Gold-Leaf Fluted Candle Holder',
+                materialAr: 'كونكريت مضلع + ورق ذهب',
+                materialEn: 'Fluted Concrete + Gold Leaf',
+                descAr: 'حامل شموع أو أكسسوارات بقاعدة مضلعة أنيقة مزينة برقائق الذهب على الحواف ليمنح المكان إضاءة دافئة.',
+                descEn: 'Pedestal fluted concrete vessel accented with genuine-look gold leaf flakes along the rim.',
+                svg: `<svg viewBox="0 0 200 200" class="w-full h-full"><rect width="200" height="200" fill="#F2ECE1"/><rect x="55" y="138" width="90" height="22" rx="11" fill="#FAF8F5" stroke="#DFD6C7" stroke-width="2"/><rect x="45" y="55" width="110" height="86" rx="18" fill="#FAF8F5" stroke="#DFD6C7" stroke-width="2"/><line x1="65" y1="60" x2="65" y2="136" stroke="#E5DDD0" stroke-width="3"/><line x1="88" y1="60" x2="88" y2="136" stroke="#E5DDD0" stroke-width="3"/><line x1="112" y1="60" x2="112" y2="136" stroke="#E5DDD0" stroke-width="3"/><line x1="135" y1="60" x2="135" y2="136" stroke="#E5DDD0" stroke-width="3"/><path d="M48,60 Q80,50 105,58 T152,60" fill="none" stroke="#C59B48" stroke-width="5" stroke-linecap="round"/><circle cx="125" cy="95" r="4" fill="#C59B48"/></svg>`
+            },
+            {
+                id: 'custom-name-keychain',
+                category: 'resin',
+                titleAr: 'ميدالية ريزن بالاسم ورقائق الذهب',
+                titleEn: 'Custom Arabic/English Name Resin Keychain',
+                materialAr: 'ريزن كريستالي + رقائق ذهب',
+                materialEn: 'Crystal Resin + Gold Flakes',
+                descAr: 'ميدالية مفاتيح مصنوعة يدوياً من الريزن مع رقائق الذهب اللامعة وكتابة أي اسم بالعربي أو الإنجليزي حسب طلبك.',
+                descEn: 'Hand-poured resin keychain infused with shimmering gold flakes and personalized with your choice of Arabic or English calligraphy.',
+                svg: `<svg viewBox="0 0 200 200" class="w-full h-full"><rect width="200" height="200" fill="#F2ECE1"/><circle cx="100" cy="34" r="12" fill="none" stroke="#C59B48" stroke-width="3.5"/><path d="M68,52 L132,52 L142,155 L58,155 Z" rx="14" fill="#FAF8F5" stroke="#C59B48" stroke-width="2.5"/><polygon points="72,58 92,56 80,70" fill="#C59B48"/><polygon points="112,57 128,60 120,72" fill="#C59B48"/><polygon points="66,142 84,148 75,134" fill="#C59B48"/><polygon points="118,144 134,148 126,134" fill="#C59B48"/><text x="100" y="112" text-anchor="middle" font-family="Amiri, serif" font-size="30" font-weight="bold" fill="#1E1E1E">تاليا</text></svg>`
+            },
+            {
+                id: 'preserved-flower-frame',
+                category: 'gifts',
+                titleAr: 'تابلوه حفظ الورد والذكريات',
+                titleEn: 'Preserved Flowers & Date Memory Frame',
+                materialAr: 'إطار حفظ ورد + خط مذهب',
+                materialEn: 'Preserved Floral Frame + Gold Script',
+                descAr: 'احفظ باقة ورد خطوبتك أو زفافك في تابلوه فني أنيق مع كتابة الأسماء وتاريخ المناسبة باللون الذهبي.',
+                descEn: 'Preserve your engagement or wedding bouquet inside a timeless display frame customized with names and your special date.',
+                svg: `<svg viewBox="0 0 200 200" class="w-full h-full"><rect width="200" height="200" fill="#F2ECE1"/><rect x="35" y="22" width="130" height="156" rx="6" fill="#FAF8F5" stroke="#1E1E1E" stroke-width="7"/><circle cx="100" cy="78" r="34" fill="#7A1C32"/><circle cx="86" cy="70" r="14" fill="#94243E"/><circle cx="114" cy="72" r="13" fill="#631426"/><circle cx="100" cy="92" r="15" fill="#8A2039"/><path d="M94,112 L92,145 M100,112 L100,146 M106,112 L108,145" stroke="#5E7353" stroke-width="2.5"/><path d="M88,125 Q100,132 112,125" fill="none" stroke="#C59B48" stroke-width="4"/><text x="72" y="158" text-anchor="middle" font-family="Amiri, serif" font-size="11" fill="#C59B48" font-weight="bold">14/11/2026</text></svg>`
+            },
+            {
+                id: 'celestial-resin-necklaces',
+                category: 'resin',
+                titleAr: 'سلاسل ريزن بتصاميم فلكية وهندسية',
+                titleEn: 'Celestial & Minimalist Resin Necklaces',
+                materialAr: 'دلايات ريزن يدوية + سلسلة ذهبية',
+                materialEn: 'Handmade Resin Pendants + Gold Chain',
+                descAr: 'سلاسل رقيقة بدلايات هلال وقلب ودوائر من الريزن بالأبيض والأسود ورقائق الذهب لإطلالة يومية ناعمة.',
+                descEn: 'Dainty gold-tone necklaces featuring crescent moon, heart, and geometric resin pendants with gold leaf accents.',
+                svg: `<svg viewBox="0 0 200 200" class="w-full h-full"><rect width="200" height="200" fill="#F2ECE1"/><path d="M55,20 Q100,95 145,20" fill="none" stroke="#C59B48" stroke-width="2"/><path d="M100,72 A22,22 0 1,0 122,94 A17,17 0 1,1 100,72 Z" fill="#1E1E1E" stroke="#C59B48" stroke-width="2"/><circle cx="96" cy="96" r="4" fill="#C59B48"/><path d="M35,45 Q75,135 115,45" fill="none" stroke="#C59B48" stroke-width="1.8"/><path d="M75,112 C67,104 56,112 75,128 C94,112 83,104 75,112 Z" fill="#FAF8F5" stroke="#C59B48" stroke-width="2"/></svg>`
+            },
+            {
+                id: 'alphabet-resin-keychains',
+                category: 'resin',
+                titleAr: 'ميداليات الحروف المذهبة',
+                titleEn: 'Gold-Flake Alphabet Keychains',
+                materialAr: 'ريزن أسود وشفاف + رقائق ذهب',
+                materialEn: 'Black & Clear Resin + Gold Flakes',
+                descAr: 'ميداليات حروف إنجليزية من A إلى Z بتصميم رخامي يجمع الأسود ورقائق الذهب؛ هدية عملية وأنيقة لكل المناسبات.',
+                descEn: 'A-to-Z initial resin keychains crafted in a striking black and gold-flake marble finish—an ideal personalized gift.',
+                svg: `<svg viewBox="0 0 200 200" class="w-full h-full"><rect width="200" height="200" fill="#F2ECE1"/><circle cx="100" cy="36" r="11" fill="none" stroke="#C59B48" stroke-width="3"/><text x="100" y="142" text-anchor="middle" font-family="Plus Jakarta Sans, sans-serif" font-size="108" font-weight="800" fill="#1E1E1E" stroke="#C59B48" stroke-width="2.5">H</text><circle cx="78" cy="82" r="4" fill="#C59B48"/><circle cx="122" cy="118" r="5" fill="#C59B48"/><circle cx="100" cy="100" r="3.5" fill="#C59B48"/></svg>`
+            }
+        ];
+
+        // Render Products into Grid
+        function renderProducts() {
+            const grid = document.getElementById('productsGrid');
+            const filtered = currentFilter === 'all' 
+                ? products 
+                : products.filter(p => p.category === currentFilter);
+
+            grid.innerHTML = filtered.map(product => {
+                const title = currentLang === 'ar' ? product.titleAr : product.titleEn;
+                const material = currentLang === 'ar' ? product.materialAr : product.materialEn;
+                const desc = currentLang === 'ar' ? product.descAr : product.descEn;
+                const ctaText = translations[currentLang].cardCta;
+                const badgeText = translations[currentLang].cardBadgeCustom;
+
+                return `
+                    <article onclick="openProductModal('${product.id}')" class="cursor-pointer bg-ivory rounded-3xl border border-sandBorder overflow-hidden flex flex-col justify-between card-hover group">
+                        <div>
+                            <!-- Artwork Container (Easy to replace with real <img> tags later) -->
+                            <div class="relative aspect-square bg-linen overflow-hidden border-b border-sandBorder/60">
+                                ${product.svg}
+                                <span class="absolute top-3.5 ltr:left-3.5 rtl:right-3.5 px-3 py-1 rounded-full bg-ivory/90 backdrop-blur-sm border border-gold/40 text-[11px] font-semibold text-charcoal">
+                                    ${badgeText}
+                                </span>
+                            </div>
+
+                            <!-- Card Text -->
+                            <div class="p-5 space-y-2">
+                                <p class="text-[11px] font-semibold text-gold tracking-wide">${material}</p>
+                                <h3 class="font-display text-xl font-bold text-charcoal group-hover:text-gold transition-colors leading-snug">
+                                    ${title}
+                                </h3>
+                                <p class="text-xs text-muted line-clamp-2 leading-relaxed">
+                                    ${desc}
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Action Footer -->
+                        <div class="px-5 pb-5 pt-2">
+                            <button type="button" class="w-full py-3 px-4 rounded-xl bg-linen group-hover:bg-charcoal text-charcoal group-hover:text-ivory border border-sandBorder group-hover:border-charcoal text-xs font-semibold flex items-center justify-center gap-2 transition-all">
+                                <i class="fa-solid fa-wand-magic-sparkles text-gold"></i>
+                                <span>${ctaText}</span>
+                            </button>
+                        </div>
+                    </article>
+                `;
+            }).join('');
+        }
+
+        // Filter Products by Category
+        function filterProducts(category) {
+            currentFilter = category;
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                if (btn.dataset.cat === category) {
+                    btn.classList.remove('bg-ivory', 'text-charcoal', 'border', 'border-sandBorder');
+                    btn.classList.add('bg-charcoal', 'text-ivory', 'shadow-sm');
+                } else {
+                    btn.classList.remove('bg-charcoal', 'text-ivory', 'shadow-sm');
+                    btn.classList.add('bg-ivory', 'text-charcoal', 'border', 'border-sandBorder');
+                }
+            });
+            renderProducts();
+        }
+
+        // Toggle Arabic / English Language
+        function toggleLanguage() {
+            currentLang = currentLang === 'ar' ? 'en' : 'ar';
+            const htmlEl = document.documentElement;
+            htmlEl.setAttribute('lang', currentLang);
+            htmlEl.setAttribute('dir', currentLang === 'ar' ? 'rtl' : 'ltr');
+
+            // Update Toggle Button Text
+            document.getElementById('langLabel').textContent = currentLang === 'ar' ? 'English' : 'العربية';
+
+            // Update All Static Data-i18n Elements
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[currentLang][key]) {
+                    el.textContent = translations[currentLang][key];
+                }
+            });
+
+            // Re-render dynamic product cards
+            renderProducts();
+        }
+
+        // Mobile Menu Controls
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+        function closeMobileMenu() {
+            document.getElementById('mobileMenu').classList.add('hidden');
+        }
+
+        // Open Product Customization Modal
+        function openProductModal(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+            activeProduct = product;
+
+            document.getElementById('modalCategoryBadge').textContent = currentLang === 'ar' ? product.materialAr : product.materialEn;
+            document.getElementById('modalTitle').textContent = currentLang === 'ar' ? product.titleAr : product.titleEn;
+            document.getElementById('modalDesc').textContent = currentLang === 'ar' ? product.descAr : product.descEn;
+            document.getElementById('modalMaterialBadge').textContent = currentLang === 'ar' ? product.materialAr : product.materialEn;
+            document.getElementById('modalArtwork').innerHTML = product.svg;
+
+            // Reset inputs
+            document.getElementById('modalCustomName').value = '';
+            document.getElementById('modalCustomNotes').value = '';
+
+            const modal = document.getElementById('productModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Close Product Modal
+        function closeProductModal() {
+            const modal = document.getElementById('productModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            document.body.style.overflow = '';
+        }
+
+        // Close modal when clicking backdrop
+        document.getElementById('productModal').addEventListener('click', function(e) {
+            if (e.target === this) closeProductModal();
+        });
+
+        // Build Formatted Order Message for Modal Product
+        function buildModalOrderText() {
+            if (!activeProduct) return '';
+            const prodName = `${activeProduct.titleAr} (${activeProduct.titleEn})`;
+            const customName = document.getElementById('modalCustomName').value.trim() || (currentLang === 'ar' ? 'بدون اسم محدد' : 'None specified');
+            const color = document.getElementById('modalCustomColor').value;
+            const notes = document.getElementById('modalCustomNotes').value.trim() || (currentLang === 'ar' ? 'لا يوجد' : 'None');
+
+            return [
+                `مرحباً HMR Alchemy 🖤`,
+                `أرغب في طلب / الاستفسار عن قطعة من الموقع:`,
+                `• القطعة: ${prodName}`,
+                `• الاسم أو التاريخ المطلوب: ${customName}`,
+                `• اللون المفضل: ${color}`,
+                `• ملاحظات إضافية: ${notes}`
+            ].join('\n');
+        }
+
+        // Submit Modal Order to WhatsApp or Gmail
+        function submitModalOrder(channel) {
+            const message = buildModalOrderText();
+            if (channel === 'whatsapp') {
+                const waUrl = `https://wa.me/${CONTACT_CONFIG.whatsappNumber}?text=${encodeURIComponent(message)}`;
+                window.open(waUrl, '_blank', 'noopener');
+            } else if (channel === 'gmail') {
+                const subject = encodeURIComponent(`طلب جديد من HMR Alchemy - ${activeProduct.titleAr}`);
+                const body = encodeURIComponent(message);
+                window.location.href = `mailto:${CONTACT_CONFIG.gmailAddress}?subject=${subject}&body=${body}`;
+            }
+        }
+
+        // Copy Modal Order Details to Clipboard (Fallback for desktop users without mail app)
+        function copyModalOrderDetails() {
+            const message = buildModalOrderText();
+            const textarea = document.createElement('textarea');
+            textarea.value = message;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+            showToast(translations[currentLang].toastCopied);
+        }
+
+        // Submit Custom Order Builder Section to WhatsApp or Gmail
+        function sendCustomOrder(channel) {
+            const category = document.getElementById('customCategory').value;
+            const customText = document.getElementById('customText').value.trim() || 'غير محدد';
+            const colors = document.getElementById('customColors').value.trim() || 'حسب اقتراحكم';
+            const location = document.getElementById('customLocation').value.trim() || 'غير محدد';
+            const notes = document.getElementById('customNotes').value.trim() || 'لا يوجد';
+
+            const message = [
+                `مرحباً HMR Alchemy 🖤`,
+                `أرغب في طلب تصميم خاص (Custom Order):`,
+                `• نوع القطعة: ${category}`,
+                `• الاسم / التاريخ: ${customText}`,
+                `• الألوان المفضلة: ${colors}`,
+                `• مكان الشحن: ${location}`,
+                `• تفاصيل إضافية: ${notes}`
+            ].join('\n');
+
+            if (channel === 'whatsapp') {
+                const waUrl = `https://wa.me/${CONTACT_CONFIG.whatsappNumber}?text=${encodeURIComponent(message)}`;
+                window.open(waUrl, '_blank', 'noopener');
+            } else if (channel === 'gmail') {
+                const subject = encodeURIComponent(`طلب تصميم خاص - HMR Alchemy`);
+                const body = encodeURIComponent(message);
+                window.location.href = `mailto:${CONTACT_CONFIG.gmailAddress}?subject=${subject}&body=${body}`;
+            }
+        }
+
+        // Show Toast Notification
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-message').textContent = msg;
+            toast.classList.remove('hidden');
+            toast.classList.add('flex');
+            setTimeout(() => {
+                toast.classList.add('hidden');
+                toast.classList.remove('flex');
+            }, 3000);
+        }
+
+        // Initial Render
+        document.addEventListener('DOMContentLoaded', () => {
+            renderProducts();
+        });
+    </script>
+</body>
+</html>
